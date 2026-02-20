@@ -30,19 +30,23 @@ const Register = () => {
         }
 
         try {
-            await axios.post('/api/auth/register', formData);
-            setSuccess(true);
-            setError('');
-            setTimeout(() => navigate('/login'), 2000);
+            const res = await axios.post('/api/auth/register', formData);
+            if (res.status === 201 || res.status === 200) {
+                setSuccess(true);
+                setError('');
+                setTimeout(() => navigate('/login'), 2000);
+            }
         } catch (err) {
             const serverMsg = err.response?.data?.message;
-            const serverErr = err.response?.data?.error;
             const serverCode = err.response?.data?.code;
+            const status = err.response?.status;
 
             if (serverMsg) {
                 setError(serverCode ? `${serverMsg} (${serverCode})` : serverMsg);
+            } else if (status === 404) {
+                setError('Registration endpoint not found (404). Check Vercel config.');
             } else {
-                setError('Registration failed: Connection error or server is down');
+                setError('Registration failed: Connection error or database is down');
             }
             console.error('Registration error details:', err.response?.data || err.message);
         }

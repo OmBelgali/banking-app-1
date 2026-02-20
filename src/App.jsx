@@ -7,11 +7,11 @@ import Register from './pages/Auth/Register';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('user'));
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
+    const user = localStorage.getItem('user');
+    setIsAuthenticated(!!user);
   }, []);
 
   const ProtectedRoute = ({ children }) => {
