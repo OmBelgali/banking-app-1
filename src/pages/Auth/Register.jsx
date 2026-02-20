@@ -20,7 +20,8 @@ const Register = () => {
         }
 
         try {
-            await axios.post('http://localhost:5000/api/auth/register', { username, password });
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.post(`${apiUrl}/api/auth/register`, { username, password });
             setSuccess(true);
             setError('');
             setTimeout(() => navigate('/login'), 2000);
