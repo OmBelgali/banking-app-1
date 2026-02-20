@@ -23,16 +23,21 @@ app.post('/api/auth/register', async (req, res) => {
     try {
         // Validation (basic)
         if (!uid || !username || !password || !email) {
-            return res.status(400).json({ message: 'Missing required fields' });
+            return res.status(400).json({ message: 'Missing required fields (UID, Username, Password, or Email)' });
         }
 
         const result = await db.query('SELECT * FROM KodUser WHERE username = $1 OR email = $2 OR uid = $3', [username, email, uid]);
+
         if (result.rows.length > 0) {
-            return res.status(400).json({ message: 'User with this UID, username, or email already exists' });
+            const existing = result.rows[0];
+            let msg = 'User already exists';
+            if (existing.uid === uid) msg = 'User ID (UID) already taken';
+            else if (existing.username === username) msg = 'Username already taken';
+            else if (existing.email === email) msg = 'Email already taken';
+            return res.status(400).json({ message: msg });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        // Default balance 100000.00 is handled by DB DEFAULT but we can specify it too
         await db.query(
             'INSERT INTO KodUser (uid, username, password, email, phone, role) VALUES ($1, $2, $3, $4, $5, $6)',
             [uid, username, hashedPassword, email, phone, role || 'Customer']
@@ -40,8 +45,12 @@ app.post('/api/auth/register', async (req, res) => {
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server error during registration' });
+        console.error('Registration Error:', err);
+        res.status(500).json({
+            message: 'Server error during registration',
+            error: err.message,
+            code: err.code
+        });
     }
 });
 

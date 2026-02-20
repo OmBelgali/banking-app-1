@@ -35,7 +35,16 @@ const Register = () => {
             setError('');
             setTimeout(() => navigate('/login'), 2000);
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed');
+            const serverMsg = err.response?.data?.message;
+            const serverErr = err.response?.data?.error;
+            const serverCode = err.response?.data?.code;
+
+            if (serverMsg) {
+                setError(serverCode ? `${serverMsg} (${serverCode})` : serverMsg);
+            } else {
+                setError('Registration failed: Connection error or server is down');
+            }
+            console.error('Registration error details:', err.response?.data || err.message);
         }
     };
 
