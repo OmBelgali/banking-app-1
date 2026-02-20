@@ -7,6 +7,12 @@ import TransactionList from './TransactionList';
 import './Dashboard.css';
 
 const Dashboard = () => {
+    const username = localStorage.getItem('user') || 'Alex';
+
+    const handleSendMoney = () => {
+        alert('Send Money functionality: Initiating transaction sequence...');
+    };
+
     const stats = [
         { title: 'Total Balance', amount: 45231.89, trend: 'up', trendValue: 12.5, icon: <DollarSign size={24} />, color: 'orange' },
         { title: 'Monthly Income', amount: 8432.50, trend: 'up', trendValue: 8.2, icon: <TrendingUp size={24} />, color: 'pink' },
@@ -41,11 +47,11 @@ const Dashboard = () => {
         >
             <header className="dashboard-header">
                 <motion.div className="header-info" variants={itemVariants}>
-                    <h1>Welcome back, Alex</h1>
+                    <h1>Welcome back, {username}</h1>
                     <p>Here's what's happening with your finance today.</p>
                 </motion.div>
                 <motion.div className="header-actions" variants={itemVariants}>
-                    <button className="btn-primary glow-orange">Send Money</button>
+                    <button className="btn-primary glow-orange" onClick={handleSendMoney}>Send Money</button>
                 </motion.div>
             </header>
 
