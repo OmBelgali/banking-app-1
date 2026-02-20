@@ -1,6 +1,9 @@
 import pg from 'pg';
 const { Pool } = pg;
 
+// Force bypass for self-signed certificates in Aiven/Vercel
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const pool = new Pool(process.env.DATABASE_URL ? {
     connectionString: process.env.DATABASE_URL,
     ssl: {
