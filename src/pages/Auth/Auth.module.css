@@ -50,9 +50,27 @@
     color: var(--text-dim);
 }
 
-.inputGroup input {
+.inputGroup input,
+.inputGroup select {
     width: 100%;
     padding-left: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+    height: 48px;
+    cursor: pointer;
+}
+
+.inputGroup select {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.inputGroup select option {
+    background-color: var(--bg-darker);
+    color: white;
 }
 
 .errorText {

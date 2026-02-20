@@ -62,7 +62,7 @@ const Register = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
-                <h2 className={styles.authTitle}>Join Aether Bank</h2>
+                <h2 className={styles.authTitle}>Join Kodbank</h2>
                 <p className={styles.authSubtitle}>Start your premium journey today</p>
 
                 {success ? (

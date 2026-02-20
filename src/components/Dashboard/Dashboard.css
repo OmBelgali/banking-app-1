@@ -24,17 +24,19 @@
     color: var(--text-dim);
 }
 
-.btn-primary {
+.btn-secondary {
     padding: 12px 24px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background: rgba(255, 255, 255, 0.05);
     color: white;
     font-weight: 600;
-    box-shadow: 0 10px 20px -5px rgba(255, 140, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
 }
 
-.btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 25px -5px rgba(255, 140, 0, 0.5);
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .stats-grid {

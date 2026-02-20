@@ -28,7 +28,7 @@ const Sidebar = () => {
     <div className="sidebar glass-card">
       <div className="sidebar-logo">
         <div className="logo-icon glow-orange"></div>
-        <span>Aether Bank</span>
+        <span>Kodbank</span>
       </div>
 
       <nav className="sidebar-nav">

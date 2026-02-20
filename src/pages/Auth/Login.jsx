@@ -36,7 +36,7 @@ const Login = ({ setAuth }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <h2 className={styles.authTitle}>Aether Bank Login</h2>
+                <h2 className={styles.authTitle}>Kodbank Login</h2>
                 <p className={styles.authSubtitle}>Secure access to your wealth</p>
 
                 <form onSubmit={handleLogin} className={styles.authForm}>
