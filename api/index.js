@@ -1,10 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
-const db = require('./db');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import db from './db.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.use(cors({
@@ -134,4 +136,4 @@ app.post('/api/auth/logout', async (req, res) => {
 });
 
 // Export the app for Vercel
-module.exports = app;
+export default app;
