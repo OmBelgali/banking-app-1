@@ -14,11 +14,13 @@ const Login = ({ setAuth }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('/api/auth/login', { username, password });
-            localStorage.setItem('token', res.data.token);
-            localStorage.setItem('user', res.data.username);
-            setAuth(true);
-            navigate('/');
+            const res = await axios.post('/api/auth/login', { username, password }, { withCredentials: true });
+            if (res.data.success) {
+                localStorage.setItem('user', res.data.username);
+                localStorage.setItem('role', res.data.role);
+                setAuth(true);
+                navigate('/');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         }

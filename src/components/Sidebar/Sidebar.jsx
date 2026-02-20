@@ -13,10 +13,15 @@ const Sidebar = () => {
     { icon: <User size={20} />, label: 'Profile' },
   ];
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/auth/logout', {}, { withCredentials: true });
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
     localStorage.removeItem('user');
-    window.location.reload(); // Force reload to trigger auth check in App.jsx
+    localStorage.removeItem('role');
+    window.location.reload();
   };
 
   return (

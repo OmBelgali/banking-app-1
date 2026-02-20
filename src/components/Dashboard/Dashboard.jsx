@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DollarSign, TrendingUp, CreditCard, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
+import axios from 'axios';
 import StatCard from './StatCard';
 import SpendingChart from './SpendingChart';
 import TransactionList from './TransactionList';
@@ -8,13 +10,35 @@ import './Dashboard.css';
 
 const Dashboard = () => {
     const username = localStorage.getItem('user') || 'Alex';
+    const [balance, setBalance] = useState(null);
+    const [showBalance, setShowBalance] = useState(false);
 
     const handleSendMoney = () => {
         alert('Send Money functionality: Initiating transaction sequence...');
     };
 
+    const handleCheckBalance = async () => {
+        try {
+            const res = await axios.get('/api/auth/balance', { withCredentials: true });
+            setBalance(res.data.balance);
+            setShowBalance(true);
+
+            // Party Popper Effect
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff8c00', '#ff0055', '#3300ff']
+            });
+
+            alert(`Your balance is: $${res.data.balance.toLocaleString()}`);
+        } catch (err) {
+            alert('Failed to fetch balance. Please login again.');
+        }
+    };
+
     const stats = [
-        { title: 'Total Balance', amount: 45231.89, trend: 'up', trendValue: 12.5, icon: <DollarSign size={24} />, color: 'orange' },
+        { title: 'Total Balance', amount: balance || 45231.89, trend: 'up', trendValue: 12.5, icon: <DollarSign size={24} />, color: 'orange' },
         { title: 'Monthly Income', amount: 8432.50, trend: 'up', trendValue: 8.2, icon: <TrendingUp size={24} />, color: 'pink' },
         { title: 'Monthly Expenses', amount: 3120.45, trend: 'down', trendValue: 4.1, icon: <Activity size={24} />, color: 'blue' },
         { title: 'Total Savings', amount: 12450.00, trend: 'up', trendValue: 15.3, icon: <CreditCard size={24} />, color: 'orange' },
@@ -51,6 +75,7 @@ const Dashboard = () => {
                     <p>Here's what's happening with your finance today.</p>
                 </motion.div>
                 <motion.div className="header-actions" variants={itemVariants}>
+                    <button className="btn-secondary" onClick={handleCheckBalance}>Check Balance</button>
                     <button className="btn-primary glow-orange" onClick={handleSendMoney}>Send Money</button>
                 </motion.div>
             </header>

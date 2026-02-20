@@ -6,21 +6,31 @@ import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import styles from './Auth.module.css';
 
 const Register = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        uid: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        email: '',
+        phone: '',
+        role: 'Customer'
+    });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
             return setError('Passwords do not match');
         }
 
         try {
-            await axios.post('/api/auth/register', { username, password });
+            await axios.post('/api/auth/register', formData);
             setSuccess(true);
             setError('');
             setTimeout(() => navigate('/login'), 2000);
@@ -50,36 +60,85 @@ const Register = () => {
                 ) : (
                     <form onSubmit={handleRegister} className={styles.authForm}>
                         {error && <p className={styles.errorText}>{error}</p>}
+
                         <div className={styles.inputGroup}>
                             <User className={styles.inputIcon} size={20} />
                             <input
+                                name="uid"
                                 type="text"
-                                placeholder="Choose Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="User ID (UID)"
+                                value={formData.uid}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
+
+                        <div className={styles.inputGroup}>
+                            <User className={styles.inputIcon} size={20} />
+                            <input
+                                name="username"
+                                type="text"
+                                placeholder="Username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroup}>
+                            <User className={styles.inputIcon} size={20} />
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Email Address"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroup}>
+                            <User className={styles.inputIcon} size={20} />
+                            <input
+                                name="phone"
+                                type="text"
+                                placeholder="Phone Number"
+                                value={formData.phone}
+                                onChange={handleChange}
+                            />
+                        </div>
+
                         <div className={styles.inputGroup}>
                             <Lock className={styles.inputIcon} size={20} />
                             <input
+                                name="password"
                                 type="password"
                                 placeholder="Create Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={formData.password}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
+
                         <div className={styles.inputGroup}>
                             <Lock className={styles.inputIcon} size={20} />
                             <input
+                                name="confirmPassword"
                                 type="password"
                                 placeholder="Confirm Password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
+
+                        <div className={styles.inputGroup}>
+                            <ShieldCheck className={styles.inputIcon} size={20} />
+                            <select name="role" value={formData.role} onChange={handleChange}>
+                                <option value="Customer">Customer</option>
+                            </select>
+                        </div>
+
                         <button type="submit" className="btn-primary glow-orange">
                             Create Account <ArrowRight size={18} />
                         </button>
