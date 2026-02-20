@@ -1,0 +1,84 @@
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+}
+
+.transaction-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.transaction-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+}
+
+.transaction-icon-wrapper.credit {
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.transaction-icon-wrapper.debit {
+    color: var(--text-main);
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-name {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9375rem;
+}
+
+.transaction-meta {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.transaction-amount-wrapper {
+    text-align: right;
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 0.9375rem;
+}
+
+.transaction-amount.positive {
+    color: #10b981;
+}
+
+.transaction-amount.negative {
+    color: var(--text-main);
+}
+
+.transaction-status {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.transaction-status.completed {
+    color: var(--text-dim);
+}
+
+.transaction-status.pending {
+    color: var(--accent-primary);
+}
