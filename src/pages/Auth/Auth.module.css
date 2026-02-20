@@ -10,26 +10,28 @@
 }
 
 .authCard {
-    width: 400px;
-    padding: 40px;
+    width: 420px;
+    padding: 48px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     text-align: center;
     z-index: 10;
+    background: rgba(255, 255, 255, 0.07) !important;
 }
 
 .authTitle {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
     color: var(--text-main);
-    margin-bottom: 4px;
+    letter-spacing: -0.5px;
 }
 
 .authSubtitle {
-    color: var(--text-dim);
-    font-size: 0.875rem;
-    margin-bottom: 20px;
+    color: var(--text-main);
+    opacity: 0.8;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
 }
 
 .authForm {
