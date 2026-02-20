@@ -9,7 +9,7 @@ import TransactionList from './TransactionList';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const username = localStorage.getItem('user') || 'Alex';
+    const username = sessionStorage.getItem('user') || 'Alex';
     const [balance, setBalance] = useState(null);
     const [showBalance, setShowBalance] = useState(false);
 

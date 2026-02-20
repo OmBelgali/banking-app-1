@@ -7,10 +7,10 @@ import Register from './pages/Auth/Register';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('user'));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!sessionStorage.getItem('user'));
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
+    const user = sessionStorage.getItem('user');
     setIsAuthenticated(!!user);
   }, []);
 

@@ -19,8 +19,8 @@ const Sidebar = () => {
     } catch (err) {
       console.error('Logout failed:', err);
     }
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('role');
     window.location.reload();
   };
 

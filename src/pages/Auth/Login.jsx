@@ -16,8 +16,8 @@ const Login = ({ setAuth }) => {
         try {
             const res = await axios.post('/api/auth/login', { username, password }, { withCredentials: true });
             if (res.data.success) {
-                localStorage.setItem('user', res.data.username);
-                localStorage.setItem('role', res.data.role);
+                sessionStorage.setItem('user', res.data.username);
+                sessionStorage.setItem('role', res.data.role);
                 setAuth(true);
                 navigate('/');
             }
