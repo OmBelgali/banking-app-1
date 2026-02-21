@@ -157,14 +157,18 @@ app.post('/api/chat', async (req, res) => {
     // 3. AI Fallback (Hugging Face)
     try {
         const response = await fetch(
-            "https://router.huggingface.co/hf-inference/models/google/flan-t5-base",
+            "https://router.huggingface.co/v1/chat/completions",
             {
                 headers: {
                     "Authorization": `Bearer ${process.env.HF_TOKEN}`,
                     "Content-Type": "application/json"
                 },
                 method: "POST",
-                body: JSON.stringify({ inputs: message }),
+                body: JSON.stringify({
+                    model: "meta-llama/Llama-3.2-1B-Instruct",
+                    messages: [{ role: "user", content: `As a professional banking assistant, provide a clear and short answer: ${message}` }],
+                    max_tokens: 100
+                }),
             }
         );
 
@@ -175,8 +179,8 @@ app.post('/api/chat', async (req, res) => {
         }
 
         const result = await response.json();
-        const aiReply = result[0]?.generated_text || "I'm sorry, I couldn't process your request.";
-        res.json({ reply: aiReply });
+        const aiReply = result.choices?.[0]?.message?.content || "I'm sorry, I couldn't process your request.";
+        res.json({ reply: aiReply.trim() });
     } catch (err) {
         console.error('HF Fetch Error:', err);
         res.status(500).json({ reply: 'Something went wrong with our AI assistant.' });

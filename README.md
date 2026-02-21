@@ -30,4 +30,4 @@ This application now features an AI-powered customer support chatbot.
 
 - **FAQ**: Instant answers for "upi limit", "reset password", and "block card".
 - **Security**: Professional filtering of sensitive keywords like OTP and PIN.
-- **AI**: Powered by Hugging Face `google/flan-t5-base`.
+- **AI**: Powered by Meta's advanced `Llama-3.2-1B-Instruct` via the Hugging Face Router for fast and intelligent banking support.

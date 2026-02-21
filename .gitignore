@@ -28,5 +28,9 @@ dist-ssr
 .env.*
 banking-chat-bot-token.txt
 banking-chat-boy-token.txt
+test_hf*.py
+server/test_hf*.py
+models.json
+server/models.json
 node_modules/
 server/node_modules/
