@@ -7,6 +7,7 @@ import StatCard from './StatCard';
 import SpendingChart from './SpendingChart';
 import TransactionList from './TransactionList';
 import NotificationModal from './NotificationModal';
+import Footer from '../Footer/Footer';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -115,6 +116,8 @@ const Dashboard = () => {
                     </div>
                 </motion.div>
             </div>
+
+            <Footer />
 
             <NotificationModal
                 isOpen={modal.isOpen}
