@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import Chatbot from './components/Chatbot/Chatbot';
 import './App.css';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             }
           />
         </Routes>
+        <Chatbot />
       </div>
     </Router>
   );

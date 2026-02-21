@@ -1,16 +1,33 @@
-# React + Vite
+# Kodbank Banking Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application now features an AI-powered customer support chatbot.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Local Development
 
-## React Compiler
+1. **Backend**:
+   - Navigate to `server/` directory.
+   - Ensure `.env` contains your `HF_TOKEN`.
+   - Run: `node index.js`
+   
+2. **Frontend**:
+   - Run: `npm run dev`
+   - The chatbot will appear as a floating bubble in the bottom right.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Deployment
 
-## Expanding the ESLint configuration
+1. **Backend**:
+   - Deploy the `server/` folder to a Node.js hosting provider (e.g., Vercel, Render).
+   - Set environment variables: `HF_TOKEN`, `JWT_SECRET`, `DB_URL`.
+   
+2. **Frontend**:
+   - Update `VITE_API_URL` in your production env or `.env` file to point to your deployed backend.
+   - Run: `npm run build`
+   - Deploy the `dist/` folder to any static hosting provider.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Chatbot Features
+
+- **FAQ**: Instant answers for "upi limit", "reset password", and "block card".
+- **Security**: Professional filtering of sensitive keywords like OTP and PIN.
+- **AI**: Powered by Hugging Face `google/flan-t5-base`.

@@ -25,3 +25,8 @@ dist-ssr
 
 .env
 .env.local
+.env.*
+banking-chat-bot-token.txt
+banking-chat-boy-token.txt
+node_modules/
+server/node_modules/
