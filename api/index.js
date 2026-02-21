@@ -125,6 +125,64 @@ app.get('/api/auth/balance', async (req, res) => {
     }
 });
 
+// Chat Endpoint
+app.post('/api/chat', async (req, res) => {
+    const { message } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ reply: 'Please provide a message.' });
+    }
+
+    const lowerMsg = message.toLowerCase();
+
+    // 1. Sensitive Data Filter
+    const sensitiveKeywords = ['otp', 'pin', 'password', 'account number'];
+    if (sensitiveKeywords.some(keyword => lowerMsg.includes(keyword))) {
+        return res.json({ reply: 'For security reasons, I cannot assist with sensitive information.' });
+    }
+
+    // 2. FAQ Logic
+    const faq = {
+        'upi limit': 'The daily UPI limit is ₹1,0,000.',
+        'reset password': 'Go to Settings → Security → Reset Password.',
+        'block card': 'Open Cards section → Block card immediately.'
+    };
+
+    for (const [key, value] of Object.entries(faq)) {
+        if (lowerMsg.includes(key)) {
+            return res.json({ reply: value });
+        }
+    }
+
+    // 3. AI Fallback (Hugging Face)
+    try {
+        const response = await fetch(
+            "https://router.huggingface.co/hf-inference/models/google/flan-t5-base",
+            {
+                headers: {
+                    "Authorization": `Bearer ${process.env.HF_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({ inputs: message }),
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`HF Error (${response.status}):`, errorText);
+            return res.json({ reply: "I'm having trouble connecting to my AI brain. Please check your Hugging Face token permissions." });
+        }
+
+        const result = await response.json();
+        const aiReply = result[0]?.generated_text || "I'm sorry, I couldn't process your request.";
+        res.json({ reply: aiReply });
+    } catch (err) {
+        console.error('HF Fetch Error:', err);
+        res.status(500).json({ reply: 'Something went wrong with our AI assistant.' });
+    }
+});
+
 // Logout
 app.post('/api/auth/logout', async (req, res) => {
     const token = req.cookies.token;
