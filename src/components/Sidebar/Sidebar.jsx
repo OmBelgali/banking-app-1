@@ -1,19 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, BarChart2, CreditCard, User, Settings, LogOut, Wallet, ShieldCheck } from 'lucide-react';
+import { Home, BarChart2, CreditCard, User, Settings, LogOut, Wallet } from 'lucide-react';
 import axios from 'axios';
 import './Sidebar.css';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const username = sessionStorage.getItem('user') || 'Alex';
 
   const menuItems = [
-    { icon: <Home size={20} />, label: 'Dashboard', desc: 'Main control center', active: true },
-    { icon: <BarChart2 size={20} />, label: 'Analytics', desc: 'Insights and trends' },
-    { icon: <CreditCard size={20} />, label: 'Cards', desc: 'Manage your cards' },
-    { icon: <Wallet size={20} />, label: 'Assets', desc: 'View your portfolio' },
+    { icon: <Home size={20} />, label: 'Dashboard', desc: 'Main control center', path: '/' },
+    { icon: <BarChart2 size={20} />, label: 'Analytics', desc: 'Insights and trends', path: '/analytics' },
+    { icon: <CreditCard size={20} />, label: 'Cards', desc: 'Manage your cards', path: '/cards' },
+    { icon: <Wallet size={20} />, label: 'Assets', desc: 'View your portfolio', path: '/assets' },
   ];
 
   const handleLogout = async () => {
@@ -28,7 +29,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar glass-card">
-      <div className="sidebar-logo">
+      <div className="sidebar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
         <motion.div
           className="logo-icon glow-orange"
           animate={{ scale: [1, 1.1, 1] }}
@@ -38,21 +39,25 @@ const Sidebar = () => {
       </div>
 
       <nav className="sidebar-nav">
-        {menuItems.map((item, index) => (
-          <motion.div
-            key={index}
-            className={`nav-item ${item.active ? 'active' : ''}`}
-            whileHover={{ x: 5, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className={`nav-icon ${item.active ? 'active' : ''}`}>{item.icon}</div>
-            <div className="nav-text">
-              <span className="nav-label">{item.label}</span>
-              <span className="nav-desc">{item.desc}</span>
-            </div>
-            {item.active && <motion.div layoutId="active-pill" className="active-pill" />}
-          </motion.div>
-        ))}
+        {menuItems.map((item, index) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <motion.div
+              key={index}
+              className={`nav-item ${isActive ? 'active' : ''}`}
+              onClick={() => navigate(item.path)}
+              whileHover={{ x: 5, backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className={`nav-icon ${isActive ? 'active' : ''}`}>{item.icon}</div>
+              <div className="nav-text">
+                <span className="nav-label">{item.label}</span>
+                <span className="nav-desc">{item.desc}</span>
+              </div>
+              {isActive && <motion.div layoutId="active-pill" className="active-pill" />}
+            </motion.div>
+          );
+        })}
       </nav>
 
       <div className="sidebar-footer">

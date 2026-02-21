@@ -4,6 +4,9 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import Analytics from './pages/Analytics/Analytics';
+import Cards from './pages/Cards/Cards';
+import Assets from './pages/Assets/Assets';
 import Chatbot from './components/Chatbot/Chatbot';
 import './App.css';
 
@@ -19,6 +22,17 @@ function App() {
     return isAuthenticated ? children : <Navigate to="/login" />;
   };
 
+  const AppLayout = ({ children }) => (
+    <ProtectedRoute>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <Sidebar />
+        <main className="main-content">
+          {children}
+        </main>
+      </div>
+    </ProtectedRoute>
+  );
+
   return (
     <Router>
       <div className="app-container">
@@ -29,20 +43,13 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login setAuth={setIsAuthenticated} />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/*"
-            element={
-              <ProtectedRoute>
-                <div style={{ display: 'flex', width: '100%' }}>
-                  <Sidebar />
-                  <main className="main-content">
-                    <Dashboard />
-                  </main>
-                </div>
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<AppLayout><Dashboard /></AppLayout>} />
+          <Route path="/analytics" element={<AppLayout><Analytics /></AppLayout>} />
+          <Route path="/cards" element={<AppLayout><Cards /></AppLayout>} />
+          <Route path="/assets" element={<AppLayout><Assets /></AppLayout>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+
         <Chatbot />
       </div>
     </Router>
