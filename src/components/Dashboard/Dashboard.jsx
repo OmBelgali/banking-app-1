@@ -6,6 +6,7 @@ import axios from 'axios';
 import StatCard from './StatCard';
 import SpendingChart from './SpendingChart';
 import TransactionList from './TransactionList';
+import NotificationModal from './NotificationModal';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -13,8 +14,20 @@ const Dashboard = () => {
     const [balance, setBalance] = useState(null);
     const [showBalance, setShowBalance] = useState(false);
 
+    // Modal State
+    const [modal, setModal] = useState({
+        isOpen: false,
+        title: '',
+        message: '',
+        type: 'info'
+    });
+
+    const showNotification = (title, message, type = 'info') => {
+        setModal({ isOpen: true, title, message, type });
+    };
+
     const handleSendMoney = () => {
-        alert('Send Money functionality: Initiating transaction sequence...');
+        showNotification('Transfer Initiated', 'Initiating secure transaction sequence for your Kodbank account...', 'info');
     };
 
     const handleCheckBalance = async () => {
@@ -31,9 +44,9 @@ const Dashboard = () => {
                 colors: ['#ff8c00', '#ff0055', '#3300ff']
             });
 
-            alert(`Your balance is: $${res.data.balance.toLocaleString()}`);
+            showNotification('Balance Check', `Your current balance is ₹${res.data.balance.toLocaleString('en-IN')}`, 'success');
         } catch (err) {
-            alert('Failed to fetch balance. Please login again.');
+            showNotification('Error', 'Failed to fetch balance. Please login again.', 'warning');
         }
     };
 
@@ -102,6 +115,14 @@ const Dashboard = () => {
                     </div>
                 </motion.div>
             </div>
+
+            <NotificationModal
+                isOpen={modal.isOpen}
+                onClose={() => setModal({ ...modal, isOpen: false })}
+                title={modal.title}
+                message={modal.message}
+                type={modal.type}
+            />
         </motion.div>
     );
 };

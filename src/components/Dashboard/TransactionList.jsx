@@ -24,7 +24,7 @@ const TransactionList = () => {
                     </div>
                     <div className="transaction-amount-wrapper">
                         <p className={`transaction-amount ${tx.type === 'credit' ? 'positive' : 'negative'}`}>
-                            {tx.type === 'credit' ? '+' : '-'}${Math.abs(tx.amount).toFixed(2)}
+                            {tx.type === 'credit' ? '+' : '-'}₹{Math.abs(tx.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                         </p>
                         <p className={`transaction-status ${tx.status.toLowerCase()}`}>{tx.status}</p>
                     </div>

@@ -16,7 +16,7 @@ const StatCard = ({ title, amount, trend, trendValue, icon, color }) => {
             </div>
             <div className="stat-content">
                 <h3 className="stat-title">{title}</h3>
-                <p className="stat-amount">${amount.toLocaleString()}</p>
+                <p className="stat-amount">₹{amount.toLocaleString('en-IN')}</p>
             </div>
         </div>
     );
