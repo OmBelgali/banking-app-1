@@ -36,9 +36,10 @@ const Chatbot = () => {
             setMessages(prev => [...prev, botMessage]);
         } catch (error) {
             console.error('Chat Error:', error);
+            const backendError = error.response?.data?.reply;
             const errorMessage = {
                 id: Date.now() + 1,
-                text: "I'm having trouble connecting to my brain. Please try again later.",
+                text: backendError || "I'm having trouble connecting to my brain. Please try again later.",
                 sender: 'bot'
             };
             setMessages(prev => [...prev, errorMessage]);
