@@ -112,7 +112,19 @@ const Analytics = () => {
                                         <Cell key={i} fill={entry.color} />
                                     ))}
                                 </Pie>
-                                <Tooltip formatter={(v) => formatINR(v)} contentStyle={{ background: 'rgba(8,10,15,0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: 'white' }} />
+                                <Tooltip
+                                    formatter={(v) => formatINR(v)}
+                                    contentStyle={{
+                                        background: 'rgba(8, 10, 15, 0.92)',
+                                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                                        borderRadius: '10px',
+                                        backdropFilter: 'blur(10px)',
+                                        color: 'white',
+                                    }}
+                                    labelStyle={{ color: 'rgba(255, 255, 255, 0.7)', fontWeight: 600, marginBottom: 4 }}
+                                    itemStyle={{ color: 'white', fontWeight: 700 }}
+                                    cursor={false}
+                                />
                             </PieChart>
                         </ResponsiveContainer>
                         <div className="pie-legend">
