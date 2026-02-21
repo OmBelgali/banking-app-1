@@ -29,7 +29,7 @@ const Chatbot = () => {
         setIsLoading(true);
 
         try {
-            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const API_URL = import.meta.env.VITE_API_URL || '';
             const response = await axios.post(`${API_URL}/api/chat`, { message: input });
 
             const botMessage = { id: Date.now() + 1, text: response.data.reply, sender: 'bot' };
