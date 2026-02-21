@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Chatbot from './components/Chatbot/Chatbot';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                   <Sidebar />
                   <main className="main-content">
                     <Dashboard />
+                    <Footer />
                   </main>
                 </div>
               </ProtectedRoute>
