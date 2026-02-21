@@ -69,7 +69,7 @@ app.post('/api/chat', async (req, res) => {
 
     // 2. FAQ Logic
     const faq = {
-        'upi limit': 'The daily UPI limit is ₹1,0,000.',
+        'upi limit': 'The daily UPI limit is ₹1,00,000.',
         'reset password': 'Go to Settings → Security → Reset Password.',
         'block card': 'Open Cards section → Block card immediately.'
     };
