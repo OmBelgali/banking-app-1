@@ -4,6 +4,9 @@ This application now features an AI-powered customer support chatbot.
 
 ## Getting Started
 
+### Live Website 👇
+https://banking-app-1-five.vercel.app/
+
 ### Local Development
 
 1. **Backend**:
