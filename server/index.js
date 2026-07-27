@@ -91,7 +91,7 @@ app.post('/api/chat', async (req, res) => {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    model: "google/flan-t5-base",
+                    model: "Qwen/Qwen2.5-7B-Instruct",
                     messages: [{ role: "user", content: `As a professional banking assistant, provide a clear and short answer: ${message}` }],
                     max_tokens: 100
                 }),
