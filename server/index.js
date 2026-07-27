@@ -91,7 +91,7 @@ app.post('/api/chat', async (req, res) => {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    model: "meta-llama/Llama-3.2-1B-Instruct",
+                    model: "google/flan-t5-base",
                     messages: [{ role: "user", content: `As a professional banking assistant, provide a clear and short answer: ${message}` }],
                     max_tokens: 100
                 }),
