@@ -156,6 +156,8 @@ app.post('/api/chat', async (req, res) => {
 
     // 3. AI Fallback (Hugging Face)
     try {
+        const hfModel = process.env.HF_MODEL || 'meta-llama/Llama-3.2-1B-Instruct';
+
         const response = await fetch(
             "https://router.huggingface.co/v1/chat/completions",
             {
@@ -165,7 +167,7 @@ app.post('/api/chat', async (req, res) => {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    model: "Qwen/Qwen2.5-14B-Instruct",
+                    model: hfModel,
                     messages: [{ role: "user", content: `As a professional banking assistant, provide a clear and short answer: ${message}` }],
                     max_tokens: 100
                 }),
