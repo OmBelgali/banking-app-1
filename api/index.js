@@ -156,7 +156,7 @@ app.post('/api/chat', async (req, res) => {
 
     // 3. AI Fallback (Hugging Face)
     try {
-        const hfModel = process.env.HF_MODEL || 'meta-llama/Llama-3.2-1B-Instruct';
+        const hfModel = process.env.HF_MODEL || 'Qwen/Qwen3.8-27B';
 
         const response = await fetch(
             "https://router.huggingface.co/v1/chat/completions",
